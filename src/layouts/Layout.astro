@@ -49,17 +49,34 @@ const currentYear = new Date().getFullYear();
     
     <!-- Navigation Archetype: N1a (Wordmark + Links) with custom design accents -->
     <header class="w-full border-b border-rule bg-paper/80 backdrop-blur-md sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href={import.meta.env.BASE_URL} class="font-display font-medium text-lg tracking-tight hover:text-accent transition-colors">
+      <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between relative">
+        <a href={import.meta.env.BASE_URL} class="font-display font-medium text-lg tracking-tight hover:text-accent transition-colors z-50">
           {siteConfig.name}
         </a>
-        <nav class="flex items-center gap-6 font-mono text-xs uppercase tracking-wider">
-          <a href={`${import.meta.env.BASE_URL}#projects`} class="hover:text-accent transition-colors">projects</a>
-          <a href={`${import.meta.env.BASE_URL}blog/`} class="hover:text-accent transition-colors">blog</a>
+
+        <!-- Hamburger Icon (Mobile Only) -->
+        <label for="nav-toggle" class="flex md:hidden flex-col gap-1.5 cursor-pointer z-50 p-2" aria-label="Toggle menu">
+          <span class="w-6 h-0.5 bg-ink transition-transform duration-300 origin-center" id="bar1"></span>
+          <span class="w-6 h-0.5 bg-ink transition-opacity duration-300" id="bar2"></span>
+          <span class="w-6 h-0.5 bg-ink transition-transform duration-300 origin-center" id="bar3"></span>
+        </label>
+
+        <input type="checkbox" id="nav-toggle" class="peer hidden" />
+
+        <!-- Navigation Drawer (collapses on mobile, shows horizontal links on desktop) -->
+        <nav class="
+          fixed inset-0 bg-paper/98 flex flex-col items-center justify-center gap-8 z-40 
+          pointer-events-none opacity-0 translate-y-[-10px] transition-all duration-300
+          peer-checked:pointer-events-auto peer-checked:opacity-100 peer-checked:translate-y-0
+          md:static md:flex-row md:bg-transparent md:inset-auto md:pointer-events-auto md:opacity-100 md:translate-y-0 md:z-auto
+          font-mono text-base md:text-xs uppercase tracking-wider
+        ">
+          <a href={`${import.meta.env.BASE_URL}#projects`} class="hover:text-accent transition-colors nav-link">projects</a>
+          <a href={`${import.meta.env.BASE_URL}blog/`} class="hover:text-accent transition-colors nav-link">blog</a>
           {siteConfig.resume && (
-            <a href={siteConfig.resume.startsWith('/') ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}${siteConfig.resume}` : siteConfig.resume} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">resume</a>
+            <a href={siteConfig.resume.startsWith('/') ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}${siteConfig.resume}` : siteConfig.resume} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors nav-link">resume</a>
           )}
-          <a href={`mailto:${siteConfig.socials.email}`} class="btn py-1.5 px-3 text-[11px] h-auto min-h-0 border-rule hover:border-accent">
+          <a href={`mailto:${siteConfig.socials.email}`} class="btn py-1.5 px-4 md:px-3 text-sm md:text-[11px] h-auto min-h-0 border-rule hover:border-accent nav-link">
             contact
           </a>
         </nav>
@@ -104,5 +121,29 @@ const currentYear = new Date().getFullYear();
         });
       }
     </script>
+
+    <!-- Mobile Navigation Drawer Controller -->
+    <script>
+      const navToggle = document.getElementById('nav-toggle') as HTMLInputElement;
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (navToggle) navToggle.checked = false;
+        });
+      });
+    </script>
+
+    <style>
+      #nav-toggle:checked ~ label #bar1 {
+        transform: translateY(7px) rotate(45deg);
+      }
+      #nav-toggle:checked ~ label #bar2 {
+        opacity: 0;
+      }
+      #nav-toggle:checked ~ label #bar3 {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    </style>
   </body>
 </html>
