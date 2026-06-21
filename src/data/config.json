@@ -1,4 +1,5 @@
 {
+  "educationEyebrow": "04 · credentials",
   "skills": [
     "Astro",
     "Tailwind CSS v4",
@@ -15,24 +16,23 @@
     "twitter": "https://twitter.com/jp",
     "github": "https://github.com/prapthijaineera"
   },
+  "blogEyebrow": "publications",
+  "aboutSkillsTitle": "capabilities index",
   "name": "Prapthi J P",
+  "aboutTitle": "about & specialization",
   "resume": "/resume-1-.pdf",
+  "experienceTitle": "professional path",
+  "projectsEyebrow": "02 · archive",
+  "heroEyebrow": "Hello there",
+  "educationTitle": "education & degrees",
+  "blogTitle": "Blogs",
   "title": "Data Engineer | Analyst",
   "accentColor": "#be4a1f",
-  "headshot": "/images/headshot.png",
-  "description": "Data Engineer | Analyst",
-  "heroEyebrow": "Hello there",
-  "heroTitle": "I am Prapthi J P",
+  "headshot": "images/photo-removebg-preview.png",
+  "blogDescription": "I'm excited to share my journey and insights with you. This space is where I'll be documenting my experiences, thoughts, and learnings, particularly in the realm of data engineering and analytics.",
   "aboutEyebrow": "01 · context",
-  "aboutTitle": "about & specialization",
-  "aboutSkillsTitle": "capabilities index",
-  "projectsEyebrow": "02 · archive",
+  "description": "Data Engineer | Analyst",
   "projectsTitle": "selected works & index",
-  "experienceEyebrow": "03 · timeline",
-  "experienceTitle": "professional path",
-  "educationEyebrow": "04 · credentials",
-  "educationTitle": "education & degrees",
-  "blogEyebrow": "publications",
-  "blogTitle": "Blogs",
-  "blogDescription": "I'm excited to share my journey and insights with you. This space is where I'll be documenting my experiences, thoughts, and learnings, particularly in the realm of data engineering and analytics."
+  "heroTitle": "I am Prapthi J P",
+  "experienceEyebrow": "03 · timeline"
 }
