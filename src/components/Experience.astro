@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { siteConfig } from '../config';
 
 let experience = [];
 try {
@@ -13,8 +14,8 @@ try {
   <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
     <!-- Left: Eyebrow and Title -->
     <div>
-      <span class="mono-label block mb-2">03 · timeline</span>
-      <h2 class="text-2xl font-display font-medium text-ink tracking-tight">professional path</h2>
+      <span class="mono-label block mb-2">{siteConfig.experienceEyebrow || "03 · timeline"}</span>
+      <h2 class="text-2xl font-display font-medium text-ink tracking-tight">{siteConfig.experienceTitle || "professional path"}</h2>
     </div>
 
     <!-- Right: Pinned List of Roles -->

@@ -35,6 +35,20 @@ collections:
               - { label: "GitHub URL", name: "github", widget: "string", required: false }
           - { label: "Resume Link", name: "resume", widget: "string", default: "/resume.pdf" }
           - { label: "Headshot Image", name: "headshot", widget: "image", default: "/images/headshot.png" }
+          - { label: "Hero Eyebrow", name: "heroEyebrow", widget: "string", default: "Hello there" }
+          - { label: "Hero Title", name: "heroTitle", widget: "string", default: "I am Prapthi J P" }
+          - { label: "About Eyebrow", name: "aboutEyebrow", widget: "string", default: "01 · context" }
+          - { label: "About Title", name: "aboutTitle", widget: "string", default: "about & specialization" }
+          - { label: "About Skills Title", name: "aboutSkillsTitle", widget: "string", default: "capabilities index" }
+          - { label: "Projects Eyebrow", name: "projectsEyebrow", widget: "string", default: "02 · archive" }
+          - { label: "Projects Title", name: "projectsTitle", widget: "string", default: "selected works & index" }
+          - { label: "Experience Eyebrow", name: "experienceEyebrow", widget: "string", default: "03 · timeline" }
+          - { label: "Experience Title", name: "experienceTitle", widget: "string", default: "professional path" }
+          - { label: "Education Eyebrow", name: "educationEyebrow", widget: "string", default: "04 · credentials" }
+          - { label: "Education Title", name: "educationTitle", widget: "string", default: "education & degrees" }
+          - { label: "Blog Page Eyebrow", name: "blogEyebrow", widget: "string", default: "publications" }
+          - { label: "Blog Page Title", name: "blogTitle", widget: "string", default: "Blogs" }
+          - { label: "Blog Page Description", name: "blogDescription", widget: "text", default: "I'm excited to share my journey and insights with you. This space is where I'll be documenting my experiences, thoughts, and learnings, particularly in the realm of data engineering and analytics." }
 
   - name: "projects"
     label: "Projects"

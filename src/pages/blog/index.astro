@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { siteConfig } from "../../config";
 
 let posts = [];
 try {
@@ -22,20 +23,18 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<Layout title="blog" description="thoughts, writeups, and engineering logs.">
+<Layout title="blog" description={siteConfig.blogDescription || "thoughts, writeups, and engineering logs."}>
   <div class="space-y-12 py-8">
     <!-- Header -->
     <div class="border-b border-rule pb-8 space-y-2">
-      <span class="mono-label">publications</span>
+      <span class="mono-label">{siteConfig.blogEyebrow || "publications"}</span>
       <h1
         class="text-3xl md:text-5xl font-display font-medium text-ink tracking-tight leading-tight"
       >
-        Blogs
+        {siteConfig.blogTitle || "Blogs"}
       </h1>
       <p class="text-sm text-muted max-w-xl font-body leading-relaxed">
-        I'm excited to share my journey and insights with you. This space is
-        where I'll be documenting my experiences, thoughts, and learnings,
-        particularly in the realm of data engineering and analytics.
+        {siteConfig.blogDescription || "I'm excited to share my journey and insights with you. This space is where I'll be documenting my experiences, thoughts, and learnings, particularly in the realm of data engineering and analytics."}
       </p>
     </div>
 
