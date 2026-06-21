@@ -1,16 +1,24 @@
 {
-  "name": "alex carter",
-  "title": "systems architect & developer",
-  "description": "minimalist developer portfolio and engineering logs.",
-  "accentColor": "#be4a1f",
+  "skills": [
+    "Astro",
+    "Tailwind CSS v4",
+    "TypeScript",
+    "Go",
+    "Rust",
+    "Docker",
+    "Kubernetes"
+  ],
   "aboutMe": "i design and build high-performance distributed systems with a focus on simplicity, readability, and performance. currently exploring compiler design and modern web interfaces.",
-  "skills": ["Astro", "Tailwind CSS v4", "TypeScript", "Go", "Rust", "Docker", "Kubernetes"],
   "socials": {
-    "email": "alex@carter.dev",
-    "linkedin": "https://linkedin.com/in/alexcarter",
-    "twitter": "https://twitter.com/alexcarter",
-    "github": "https://github.com/alexcarter"
+    "email": "prapthi@gmail.com",
+    "linkedin": "https://linkedin.com/in/prapthijaineera",
+    "twitter": "https://twitter.com/jp",
+    "github": "https://github.com/prapthijaineera"
   },
+  "name": "Prapthi J P",
   "resume": "/resume.pdf",
-  "headshot": "/images/headshot.png"
+  "title": "Data Engineer | Analyst",
+  "accentColor": "#be4a1f",
+  "headshot": "/images/photo-removebg-preview.png",
+  "description": "Devlope interactive dashboard"
 }
