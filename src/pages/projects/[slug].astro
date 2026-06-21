@@ -12,12 +12,16 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+
+const thumbnailUrl = project.data.thumbnail && project.data.thumbnail.startsWith('/')
+  ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}${project.data.thumbnail}`
+  : project.data.thumbnail;
 ---
 
 <Layout title={project.data.title} description={project.data.description}>
   <article class="space-y-8 py-8">
     <!-- Back to all projects -->
-    <a href="/#projects" class="font-mono text-xs text-muted hover:text-accent transition-colors flex items-center gap-1">
+    <a href={`${import.meta.env.BASE_URL}#projects`} class="font-mono text-xs text-muted hover:text-accent transition-colors flex items-center gap-1">
       ← back_to_archive
     </a>
 
@@ -57,10 +61,10 @@ const { Content } = await render(project);
     </div>
 
     <!-- Thumbnail -->
-    {project.data.thumbnail && (
+    {thumbnailUrl && (
       <div class="aspect-video w-full rounded-lg overflow-hidden border border-rule bg-paper-hover">
         <img
-          src={project.data.thumbnail}
+          src={thumbnailUrl}
           alt={project.data.title}
           class="w-full h-full object-cover"
         />
