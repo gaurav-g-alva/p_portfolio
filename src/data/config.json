@@ -19,6 +19,6 @@
   "resume": "/resume.pdf",
   "title": "Data Engineer | Analyst",
   "accentColor": "#be4a1f",
-  "headshot": "photo-removebg-preview.png",
+  "headshot": "public/images/photo-removebg-preview.png",
   "description": "Devlope interactive dashboard"
 }
