@@ -1,0 +1,42 @@
+---
+import { siteConfig } from '../config';
+---
+
+<section class="py-16 md:py-24 border-b border-rule relative overflow-hidden">
+  <!-- Blueprint Grid Underlay (Opacity 4% matching technical theme) -->
+  <div class="absolute inset-0 bg-[linear-gradient(var(--color-rule)_1px,transparent_1px)_0_0/32px_32px,linear-gradient(90deg,var(--color-rule)_1px,transparent_1px)_0_0/32px_32px] opacity-4 pointer-events-none"></div>
+
+  <div class="relative z-10 flex flex-col md:flex-row justify-between items-start gap-12">
+    <!-- Left Column: Title and Description -->
+    <div class="max-w-2xl space-y-6">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        <span class="mono-label">systems online · v1.0.0</span>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-display font-medium text-ink tracking-tight leading-[1.05]">
+        i build resilient <span class="text-accent underline decoration-1 underline-offset-4">architectures</span> and interfaces.
+      </h1>
+      
+      <p class="text-base text-muted leading-relaxed max-w-xl font-body">
+        {siteConfig.description}
+      </p>
+    </div>
+
+    <!-- Right Column: Headshot Picture -->
+    <div class="w-full md:w-auto flex justify-center items-center">
+      {siteConfig.headshot && (
+        <div class="relative w-48 h-48 rounded-lg overflow-hidden border border-rule bg-paper p-1.5 shadow-sm group">
+          <!-- Background blueprint decorative element -->
+          <div class="absolute inset-0 bg-[linear-gradient(var(--color-rule)_1px,transparent_1px)_0_0/16px_16px,linear-gradient(90deg,var(--color-rule)_1px,transparent_1px)_0_0/16px_16px] opacity-10 pointer-events-none"></div>
+          <!-- Actual image -->
+          <img
+            src={siteConfig.headshot}
+            alt={siteConfig.name}
+            class="relative z-10 w-full h-full object-cover rounded-md border border-rule transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import ProjectsGrid from '../components/ProjectsGrid.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import { siteConfig } from '../config';
+---
+
+<Layout title="portfolio" description={siteConfig.description}>
+  <div class="space-y-6">
+    <Hero />
+    <About />
+    <ProjectsGrid />
+    <Experience />
+    <Education />
+  </div>
+</Layout>

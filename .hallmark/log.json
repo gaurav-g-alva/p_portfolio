@@ -1,0 +1,19 @@
+[
+  {
+    "date": "2026-06-21",
+    "macrostructure": "Portfolio Grid",
+    "theme": "Newsprint",
+    "theme_axes": "light / classical-serif / warm",
+    "enrichment": "none (typography-only)",
+    "brief": "change theme of portfolio to newsprint"
+  },
+  {
+    "date": "2026-06-21",
+    "macrostructure": "Portfolio Grid",
+    "theme": "custom",
+    "theme_axes": "light / grotesk-sans / cool",
+    "vibe": "cool technical monochrome with cobalt signal",
+    "enrichment": "none (typography-only)",
+    "brief": "minimalistic modern developer portfolio with decap cms"
+  }
+]

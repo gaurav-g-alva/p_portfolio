@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).toLowerCase();
+};
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="space-y-8 py-8 max-w-3xl mx-auto">
+    <!-- Back button -->
+    <a href="/blog" class="font-mono text-xs text-muted hover:text-accent transition-colors flex items-center gap-1">
+      ← back_to_publications
+    </a>
+
+    <!-- Header info -->
+    <div class="border-b border-rule pb-8 space-y-4">
+      <div class="space-y-2">
+        <div class="flex items-center gap-3 font-mono text-xs text-muted">
+          <time datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+          </time>
+          <span>·</span>
+          <span>blog_log</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-display font-medium text-ink tracking-tight leading-tight">
+          {post.data.title}
+        </h1>
+      </div>
+      <p class="text-sm text-muted font-body leading-relaxed max-w-2xl italic">
+        {post.data.description}
+      </p>
+    </div>
+
+    <!-- Thumbnail -->
+    {post.data.thumbnail && (
+      <div class="aspect-video w-full rounded-lg overflow-hidden border border-rule bg-paper-hover">
+        <img
+          src={post.data.thumbnail}
+          alt={post.data.title}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
+
+    <!-- Content (Markdown Prose) -->
+    <div class="prose max-w-none text-muted font-body leading-relaxed space-y-6 text-sm">
+      <Content />
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,32 @@
+---
+import { siteConfig } from '../config';
+---
+
+<section class="py-16 border-b border-rule">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <!-- Left: Eyebrow and Section Name -->
+    <div>
+      <span class="mono-label block mb-2">01 · context</span>
+      <h2 class="text-2xl font-display font-medium text-ink tracking-tight">about & specialization</h2>
+    </div>
+
+    <!-- Center: About Me Description -->
+    <div class="md:col-span-1 space-y-4">
+      <p class="text-sm text-muted leading-relaxed font-body">
+        {siteConfig.aboutMe}
+      </p>
+    </div>
+
+    <!-- Right: Technical Skills (Tabular grid or clean pill tags) -->
+    <div class="md:col-span-1 border-l border-rule pl-0 md:pl-8">
+      <span class="mono-label block mb-4">capabilities index</span>
+      <div class="flex flex-wrap gap-2">
+        {siteConfig.skills.map((skill) => (
+          <span class="font-mono text-xs text-ink bg-paper-hover border border-rule px-2.5 py-1 rounded-sm hover:border-accent transition-colors">
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

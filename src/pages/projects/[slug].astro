@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<Layout title={project.data.title} description={project.data.description}>
+  <article class="space-y-8 py-8">
+    <!-- Back to all projects -->
+    <a href="/#projects" class="font-mono text-xs text-muted hover:text-accent transition-colors flex items-center gap-1">
+      ← back_to_archive
+    </a>
+
+    <!-- Title and Metadata -->
+    <div class="border-b border-rule pb-8 space-y-6">
+      <div class="space-y-2">
+        <span class="mono-label">project details</span>
+        <h1 class="text-3xl md:text-5xl font-display font-medium text-ink tracking-tight leading-tight">
+          {project.data.title}
+        </h1>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs pt-4 border-t border-rule/50">
+        <div>
+          <span class="text-muted block uppercase tracking-wider mb-1">disciplines</span>
+          <div class="flex flex-wrap gap-1">
+            {project.data.skills.map((s) => (
+              <span class="text-ink bg-paper-hover border border-rule/50 px-2 py-0.5 rounded-sm">{s}</span>
+            ))}
+          </div>
+        </div>
+
+        {project.data.link && (
+          <div>
+            <span class="text-muted block uppercase tracking-wider mb-1">deployment</span>
+            <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline flex items-center gap-0.5">
+              live_link ↗
+            </a>
+          </div>
+        )}
+
+        <div>
+          <span class="text-muted block uppercase tracking-wider mb-1">archive_id</span>
+          <span class="text-ink">{project.id}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thumbnail -->
+    {project.data.thumbnail && (
+      <div class="aspect-video w-full rounded-lg overflow-hidden border border-rule bg-paper-hover">
+        <img
+          src={project.data.thumbnail}
+          alt={project.data.title}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
+
+    <!-- Content (Markdown Prose) -->
+    <div class="prose max-w-none text-muted font-body leading-relaxed space-y-6 text-sm">
+      <Content />
+    </div>
+  </article>
+</Layout>

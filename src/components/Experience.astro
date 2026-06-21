@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+
+let experience = [];
+try {
+  experience = await getCollection('experience');
+} catch (e) {
+  // Fallback
+}
+---
+
+<section class="py-16 border-b border-rule">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <!-- Left: Eyebrow and Title -->
+    <div>
+      <span class="mono-label block mb-2">03 · timeline</span>
+      <h2 class="text-2xl font-display font-medium text-ink tracking-tight">professional path</h2>
+    </div>
+
+    <!-- Right: Pinned List of Roles -->
+    <div class="md:col-span-2 space-y-12">
+      {experience.map((job) => (
+        <div class="space-y-4 relative pl-6 before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-1 border-b border-rule pb-2">
+            <div>
+              <h3 class="font-display font-medium text-ink text-base">
+                {job.data.title}
+              </h3>
+              <span class="font-mono text-xs text-muted">
+                {job.data.company}
+              </span>
+            </div>
+            <span class="font-mono text-xs text-muted bg-paper-hover border border-rule px-2 py-0.5 rounded-sm">
+              {job.data.dateRange}
+            </span>
+          </div>
+          
+          <ul class="space-y-2 text-xs text-muted leading-relaxed font-body list-disc pl-4">
+            {(job.data.bullets || []).map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      {experience.length === 0 && (
+        <div class="text-xs text-muted font-mono">
+          no professional roles documented. add experience via admin dashboard.
+        </div>
+      )}
+    </div>
+  </div>
+</section>

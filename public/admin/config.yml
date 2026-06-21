@@ -1,0 +1,84 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# local_backend allows running a local proxy server for development
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "src/data/config.json"
+        label: "General Configuration"
+        name: "general"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Accent Color (Hex)", name: "accentColor", widget: "string", default: "#3b82f6" }
+          - { label: "About Me", name: "aboutMe", widget: "text" }
+          - { label: "Skills", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
+          - label: "Social Links"
+            name: "socials"
+            widget: "object"
+            fields:
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
+              - { label: "Twitter URL", name: "twitter", widget: "string", required: false }
+              - { label: "GitHub URL", name: "github", widget: "string", required: false }
+          - { label: "Resume Link", name: "resume", widget: "string", default: "/resume.pdf" }
+          - { label: "Headshot Image", name: "headshot", widget: "image", default: "/images/headshot.png" }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Live Link", name: "link", widget: "string", required: false }
+      - { label: "Skills Used", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "experience"
+    label: "Professional Experience"
+    folder: "src/content/experience"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Company", name: "company", widget: "string" }
+      - { label: "Job Title", name: "title", widget: "string" }
+      - { label: "Date Range", name: "dateRange", widget: "string" }
+      - { label: "Bullets", name: "bullets", widget: "list", field: { label: "Achievement", name: "achievement", widget: "string" } }
+
+  - name: "education"
+    label: "Education"
+    folder: "src/content/education"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "School", name: "school", widget: "string" }
+      - { label: "Degree", name: "degree", widget: "string" }
+      - { label: "Date Range", name: "dateRange", widget: "string" }
+      - { label: "Achievements", name: "achievements", widget: "list", field: { label: "Achievement", name: "achievement", widget: "string" } }

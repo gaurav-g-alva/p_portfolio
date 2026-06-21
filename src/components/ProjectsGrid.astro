@@ -1,0 +1,173 @@
+---
+import { getCollection } from 'astro:content';
+
+let projects = [];
+try {
+  projects = await getCollection('projects');
+} catch (e) {
+  // Graceful fallback
+}
+
+// Get all unique tags/skills from projects
+const allSkills = Array.from(
+  new Set(projects.flatMap((p) => p.data.skills || []))
+).sort();
+---
+
+<section id="projects" class="py-16 border-b border-rule">
+  <div class="space-y-8">
+    <!-- Header info -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+      <div>
+        <span class="mono-label block mb-2">02 · archive</span>
+        <h2 class="text-2xl font-display font-medium text-ink tracking-tight">selected works & index</h2>
+      </div>
+      <p class="font-mono text-xs text-muted">
+        {projects.length} projects · {allSkills.length} disciplines
+      </p>
+    </div>
+
+    <!-- Dynamic Filter Bar (Divider: no internal rules, pure interactive buttons) -->
+    {allSkills.length > 0 && (
+      <div class="flex flex-wrap gap-2 pb-4 border-b border-rule font-mono text-xs">
+        <button
+          data-filter="all"
+          class="filter-btn px-3 py-1 rounded-sm border border-accent bg-accent/5 text-accent cursor-pointer transition-colors"
+        >
+          all_works
+        </button>
+        {allSkills.map((skill) => (
+          <button
+            data-filter={skill.toLowerCase().replace(/\s+/g, '-')}
+            class="filter-btn px-3 py-1 rounded-sm border border-rule text-muted hover:border-accent hover:text-accent cursor-pointer transition-colors"
+          >
+            {skill.toLowerCase()}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <!-- Projects Responsive Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
+      {projects.map((project) => {
+        const skillsString = (project.data.skills || [])
+          .map((s) => s.toLowerCase().replace(/\s+/g, '-'))
+          .join(' ');
+        
+        return (
+          <article
+            class="project-card group border border-rule rounded-lg overflow-hidden bg-paper transition-all duration-300 hover:-translate-y-1 hover:border-accent"
+            data-skills={skillsString}
+          >
+            <!-- Image / Blueprint Placeholder -->
+            <div class="aspect-video w-full bg-paper-hover border-b border-rule relative overflow-hidden flex items-center justify-center">
+              {project.data.thumbnail ? (
+                <img
+                  src={project.data.thumbnail}
+                  alt={project.data.title}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  loading="lazy"
+                />
+              ) : (
+                <!-- Custom Blueprint Art for Project -->
+                <div class="absolute inset-0 bg-[linear-gradient(var(--color-rule)_1px,transparent_1px)_0_0/16px_16px,linear-gradient(90deg,var(--color-rule)_1px,transparent_1px)_0_0/16px_16px] opacity-10"></div>
+                <span class="font-mono text-[10px] text-muted uppercase tracking-widest relative z-10 border border-dashed border-rule p-4">
+                  {project.data.title} // blueprint
+                </span>
+              )}
+            </div>
+
+            <!-- Card Copy -->
+            <div class="p-6 space-y-4">
+              <div class="space-y-2">
+                <h3 class="text-lg font-display font-medium text-ink group-hover:text-accent transition-colors">
+                  {project.data.title}
+                </h3>
+                <p class="text-xs text-muted line-clamp-2 leading-relaxed">
+                  {project.data.description}
+                </p>
+              </div>
+
+              <!-- Tech items -->
+              <div class="flex flex-wrap gap-1.5 pt-2">
+                {(project.data.skills || []).map((skill) => (
+                  <span class="font-mono text-[10px] text-muted bg-paper-hover border border-rule/50 px-2 py-0.5 rounded-sm">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              <!-- Button view -->
+              <div class="pt-4 flex justify-between items-center border-t border-rule/40">
+                <a
+                  href={`/projects/${project.id}`}
+                  class="btn py-1 px-3 text-[11px] h-auto min-h-0 border-rule hover:border-accent group-hover:bg-accent group-hover:border-accent group-hover:text-paper"
+                >
+                  view_details →
+                </a>
+                
+                {project.data.link && (
+                  <a
+                    href={project.data.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-mono text-[10px] text-muted hover:text-accent transition-colors"
+                  >
+                    live_demo ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    {projects.length === 0 && (
+      <div class="border border-dashed border-rule rounded-lg p-12 text-center text-muted font-mono text-xs">
+        no selected works archived. use admin panel to commit projects.
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- Client-side Filtering logic with reveal transitions -->
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Manage active states
+      filterButtons.forEach((b) => {
+        b.classList.remove('border-accent', 'bg-accent/5', 'text-accent');
+        b.classList.add('border-rule', 'text-muted');
+      });
+      btn.classList.add('border-accent', 'bg-accent/5', 'text-accent');
+      btn.classList.remove('border-rule', 'text-muted');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      // Filter cards
+      projectCards.forEach((card) => {
+        const cardSkills = card.getAttribute('data-skills') || '';
+        
+        if (filterValue === 'all' || cardSkills.split(' ').includes(filterValue)) {
+          // Transition in
+          card.style.display = 'block';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          }, 50);
+        } else {
+          // Transition out
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
+  });
+</script>

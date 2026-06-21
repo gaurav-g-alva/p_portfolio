@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+let posts = [];
+try {
+  posts = await getCollection('blog');
+  // Sort posts by date descending
+  posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+} catch (e) {
+  // Fallback
+}
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  }).toLowerCase();
+};
+---
+
+<Layout title="blog" description="thoughts, writeups, and engineering logs.">
+  <div class="space-y-12 py-8">
+    <!-- Header -->
+    <div class="border-b border-rule pb-8 space-y-2">
+      <span class="mono-label">publications</span>
+      <h1 class="text-3xl md:text-5xl font-display font-medium text-ink tracking-tight leading-tight">
+        engineering logs & logs
+      </h1>
+      <p class="text-sm text-muted max-w-xl font-body leading-relaxed">
+        thoughts on software architecture, distributed systems, compiler design, and building premium products.
+      </p>
+    </div>
+
+    <!-- Blog Posts List -->
+    <div class="space-y-10">
+      {posts.map((post) => (
+        <article class="group relative flex flex-col md:flex-row justify-between items-start gap-4 pb-10 border-b border-rule/50">
+          <div class="space-y-2 max-w-2xl">
+            <div class="flex items-center gap-3">
+              <time class="font-mono text-xs text-muted" datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date)}
+              </time>
+            </div>
+            
+            <h2 class="text-xl font-display font-medium text-ink group-hover:text-accent transition-colors">
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h2>
+            
+            <p class="text-xs text-muted leading-relaxed font-body">
+              {post.data.description}
+            </p>
+          </div>
+
+          <div class="pt-2 md:pt-0">
+            <a
+              href={`/blog/${post.id}`}
+              class="btn py-1 px-3 text-[11px] h-auto min-h-0 border-rule hover:border-accent group-hover:bg-accent group-hover:border-accent group-hover:text-paper"
+            >
+              read_log →
+            </a>
+          </div>
+        </article>
+      ))}
+
+      {posts.length === 0 && (
+        <div class="border border-dashed border-rule rounded-lg p-12 text-center text-muted font-mono text-xs">
+          no publications recorded yet. use admin dashboard to create posts.
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>

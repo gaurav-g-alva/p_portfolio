@@ -1,0 +1,108 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = siteConfig.title, 
+  description = siteConfig.description 
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title ? `${siteConfig.name} | ${title}` : siteConfig.name}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Netlify Identity (Required for Decap CMS production admin panel access) -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body class="flex flex-col min-h-screen bg-paper text-ink selection:bg-accent/20 selection:text-ink">
+    
+    <!-- Navigation Archetype: N1a (Wordmark + Links) with custom design accents -->
+    <header class="w-full border-b border-rule bg-paper/80 backdrop-blur-md sticky top-0 z-50">
+      <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="/" class="font-display font-medium text-lg tracking-tight hover:text-accent transition-colors">
+          {siteConfig.name}
+        </a>
+        <nav class="flex items-center gap-6 font-mono text-xs uppercase tracking-wider">
+          <a href="/#projects" class="hover:text-accent transition-colors">projects</a>
+          <a href="/blog" class="hover:text-accent transition-colors">blog</a>
+          {siteConfig.resume && (
+            <a href={siteConfig.resume} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">resume</a>
+          )}
+          <a href={`mailto:${siteConfig.socials.email}`} class="btn py-1.5 px-3 text-[11px] h-auto min-h-0 border-rule hover:border-accent">
+            contact
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-6 py-12">
+      <slot />
+    </main>
+
+    <!-- Footer Archetype: Ft6 Letter Close -->
+    <footer class="w-full border-t border-rule bg-paper-hover py-12 mt-auto">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div class="font-display text-sm text-muted">
+          <span class="font-mono text-xs block mb-1 uppercase tracking-wider">close</span>
+          yours, {siteConfig.name}. {currentYear}.
+        </div>
+        <div class="flex gap-4 font-mono text-xs uppercase tracking-wider text-muted">
+          {siteConfig.socials.github && (
+            <a href={siteConfig.socials.github} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">github</a>
+          )}
+          {siteConfig.socials.linkedin && (
+            <a href={siteConfig.socials.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">linkedin</a>
+          )}
+          {siteConfig.socials.twitter && (
+            <a href={siteConfig.socials.twitter} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">twitter</a>
+          )}
+        </div>
+      </div>
+    </footer>
+
+    <!-- Netlify Identity Redirect Script -->
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
