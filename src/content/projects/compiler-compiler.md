@@ -1,8 +1,13 @@
 ---
-title: "chiron compiler toolchain"
-description: "a custom compiler for a subset of golang written in rust, outputting optimized x86-64 assembly with register allocation."
-link: "https://github.com/alexcarter/chiron"
-skills: ["Rust", "Go", "Assembly", "Compilers"]
+title: Dashboard on Customer Churn
+description: a custom compiler for a subset of golang written in rust,
+  outputting optimized x86-64 assembly with register allocation.
+link: https://github.com/alexcarter/chiron
+skills:
+  - "Tableau "
+  - SQL
+  - Power Bi
+  - Python
 thumbnail: ""
 ---
 
