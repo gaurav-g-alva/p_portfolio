@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://gaurav-g-alva.github.io', // Replace with your domain
-  base: '/p_portfolio',                   // Replace with repository name, or omit if user page
+  site: 'https://prapthijp.netlify.app/', // Replace with your domain
+  //base: '/p_portfolio',                   // Replace with repository name, or omit if user page
   vite: {
     plugins: [tailwindcss()],
   },
