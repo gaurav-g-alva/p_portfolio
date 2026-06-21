@@ -8,7 +8,7 @@ skills:
   - SQL
   - Power Bi
   - Python
-thumbnail: ""
+thumbnail: images/testscoregraph.png
 ---
 
 ### Project Overview
