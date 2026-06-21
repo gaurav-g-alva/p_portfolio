@@ -12,7 +12,7 @@ const headshotUrl = siteConfig.headshot && siteConfig.headshot.startsWith('/')
 
   <div class="relative z-10 flex flex-col md:flex-row justify-between items-start gap-12">
     <!-- Left Column: Title and Description -->
-    <div class="max-w-2xl space-y-6">
+    <div class="max-w-2xl space-y-6 reveal">
       <div class="flex items-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-accent animate-pulse"></span>
         <span class="mono-label">Hello there</span>
@@ -28,7 +28,7 @@ const headshotUrl = siteConfig.headshot && siteConfig.headshot.startsWith('/')
     </div>
 
     <!-- Right Column: Headshot Picture -->
-    <div class="w-full md:w-auto flex justify-center items-center">
+    <div class="w-full md:w-auto flex justify-center items-center reveal" style="transition-delay: 150ms;">
       {headshotUrl && (
         <div class="relative w-48 h-48 rounded-lg overflow-hidden border border-rule bg-paper p-1.5 shadow-sm group">
           <!-- Background blueprint decorative element -->

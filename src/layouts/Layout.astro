@@ -54,14 +54,14 @@ const currentYear = new Date().getFullYear();
           {siteConfig.name}
         </a>
 
+        <input type="checkbox" id="nav-toggle" class="peer hidden" />
+
         <!-- Hamburger Icon (Mobile Only) -->
         <label for="nav-toggle" class="flex md:hidden flex-col gap-1.5 cursor-pointer z-50 p-2" aria-label="Toggle menu">
           <span class="w-6 h-0.5 bg-ink transition-transform duration-300 origin-center" id="bar1"></span>
           <span class="w-6 h-0.5 bg-ink transition-opacity duration-300" id="bar2"></span>
           <span class="w-6 h-0.5 bg-ink transition-transform duration-300 origin-center" id="bar3"></span>
         </label>
-
-        <input type="checkbox" id="nav-toggle" class="peer hidden" />
 
         <!-- Navigation Drawer (collapses on mobile, shows horizontal links on desktop) -->
         <nav class="
@@ -131,6 +131,25 @@ const currentYear = new Date().getFullYear();
         link.addEventListener('click', () => {
           if (navToggle) navToggle.checked = false;
         });
+      });
+    </script>
+
+    <!-- Scroll Reveal Controller -->
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
       });
     </script>
 
